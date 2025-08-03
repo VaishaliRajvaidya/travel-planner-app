@@ -1,7 +1,7 @@
 import React, { useState,useContext,useEffect } from 'react'
 import{useNavigate} from "react-router-dom" 
 import { AuthContext} from '../Context/AuthContext';
-
+import { Link } from 'react-router-dom';
 
 
  
@@ -63,9 +63,9 @@ const handleLogin = ()=>{
 
         <p className="text-center text-sm mt-4">
           Don’t have an account?{" "}
-          <a  href="/register" className=" link text-blue-500 underline">
+          <Link to="/register" className="link text-blue-500 underline">
             Register here
-          </a>
+          </Link>
         </p>
       </div>
     </div>

@@ -29,8 +29,9 @@ const RegisterPage = () => {
     setConfirmPassword("");
     setEmail("") ;
       setPassword("");
-      alert("Registration successful")
-    navigate("/");
+      alert("Please Login to continue");
+      // Redirect to the login page after registration
+    navigate("/LoginPage");
        };
 
 return (

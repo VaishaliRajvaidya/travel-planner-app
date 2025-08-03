@@ -31,7 +31,7 @@ const MapPage = () => {
         transition={{ duration: 0.6 }}
         className="text-center py-10"
       >
-        <h1 className="text-4xl font-bold text-green-700 mb-4">
+        <h1 className="text-4xl font-bold text-green-700 mt-15 mb-4">
           Explore Your Destination 🗺️
         </h1>
         <p className="text-gray-600">
@@ -46,7 +46,7 @@ const MapPage = () => {
           value={location}
           onChange={(e) => setLocation(e.target.value)}
           placeholder="Enter location"
-          className="border border-green-400 px-4 py-2 rounded-lg w-full md:w-96 outline-none transition focus:ring-2 focus:ring-green-300"
+          className="border border-green-400 px-4 py-2 rounded-lg w-full md:w-96  mt-10 outline-none transition focus:ring-2 focus:ring-green-300"
         />
         <button
           onClick={handleSearch}

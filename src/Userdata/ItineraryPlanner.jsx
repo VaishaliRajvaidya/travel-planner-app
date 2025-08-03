@@ -39,7 +39,7 @@ const ItineraryPlanner = () => {
         initial={{ y: -40, opacity: 0 }}
         animate={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.8, ease: "easeOut" }}
-        className="text-4xl sm:text-5xl font-extrabold text-center mb-12 text-blue-800 tracking-tight"
+        className="text-4xl sm:text-5xl font-extrabold text-center mb-12 text-blue-800 mt-10 tracking-tight"
       >
         🗓️ Itinerary Planner
       </motion.h1>

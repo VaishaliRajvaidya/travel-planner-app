@@ -43,7 +43,7 @@ const OurServices = () => {
     <div className="bg-gradient-to-br from-cyan-700 via-teal-200 to-purple-500 min-h-screen p-6 sm:p-10">
       {/* Heading */}
       <motion.h2
-        className="text-4xl sm:text-5xl font-extrabold text-center bg-gray-900 bg-clip-text text-transparent mb-12 drop-shadow-lg"
+        className="text-4xl sm:text-5xl font-extrabold text-center mt-8 bg-gray-900 bg-clip-text text-transparent mb-12 drop-shadow-lg"
         initial={{ y: -50, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}

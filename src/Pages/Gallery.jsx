@@ -25,7 +25,7 @@ const Gallery = () => {
     <div className="bg-gradient-to-r from-blue-900 via-teal-300 to-cyan-400 px-4 sm:px-8 pt-10 pb-16">
       
       <motion.h2
-        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center text-black-800 mb-10 drop-shadow-lg"
+        className="text-3xl sm:text-4xl md:text-5xl font-bold text-center mt-8 text-black-800 mb-10 drop-shadow-lg"
         initial={{ y: -40, opacity: 0 }}
         whileInView={{ y: 0, opacity: 1 }}
         transition={{ duration: 0.6, ease: 'easeOut' }}
