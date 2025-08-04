@@ -17,6 +17,10 @@ import CheckList from "./Userdata/CheckList";
 import Map from "./Userdata/Map";
 import { TodoProvider } from "./Context/TodoContext";
 import Footer from "./Pages/Footer";
+import AllBookingFormsPage from "./components/AllBookingFormsPage";
+
+
+
 
 const AppRoute = () => {
   const location = useLocation();
@@ -39,7 +43,9 @@ const AppRoute = () => {
         <Route path="/payment" element={<PaymentForm />} />
         <Route path="/itinerary" element={<ItineraryPlanner />} />
         <Route path="/checklist" element={<CheckList />} />
-        <Route path="/map" element={<Map />} />
+        <Route path="/map" element={<Map />} /> 
+        <Route path="/book-service" element={<AllBookingFormsPage />} />
+
 
         <Route
           path="/home"

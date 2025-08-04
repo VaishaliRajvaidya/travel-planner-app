@@ -2,17 +2,25 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
 
-const transportOptions = ["Flight", "Train", "Bus"];
+const transportOptions = [
+  "Flight",
+  "Train",
+  "Bus",
+  "Ship",
+  "Bike",
+  "Taxi",
+  "Walk",
+];
 
 const Spinner = () => (
   <motion.div
-    className="w-10 h-10 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto mt-4"
+    className="w-6 h-6 border-4 border-blue-500 border-t-transparent rounded-full animate-spin mx-auto"
   />
 );
 
 const BookingPage = () => {
   const [form, setForm] = useState({
-    transport: "Flight",
+    transport: "",
     fullName: "",
     dob: "",
     journeyDate: "",
@@ -45,10 +53,16 @@ const BookingPage = () => {
           name="transport"
           value={form.transport}
           onChange={handleChange}
+          required
           className="w-full mb-4 p-2 border rounded"
         >
+          <option value="" disabled>
+            Select your means of transport
+          </option>
           {transportOptions.map((opt) => (
-            <option key={opt}>{opt}</option>
+            <option key={opt} value={opt}>
+              {opt}
+            </option>
           ))}
         </select>
 

@@ -32,11 +32,11 @@ const OurServices = () => {
   const navigate = useNavigate();
 
   const handleServiceClick = (serviceName) => {
-    if (currentUser) {
-      navigate('/booking', { state: { service: serviceName } });
-    } else {
+    if (!currentUser) {
       navigate('/LoginPage');
+      return;
     }
+    navigate('/book-service', { state: { service: serviceName } });
   };
 
   return (
@@ -65,7 +65,7 @@ const OurServices = () => {
             viewport={{ once: true }}
           >
             <div className="flex flex-col items-center text-center">
-              <i className={`text-4xl mb-3 text-white-600 ${service.icon}`}></i>
+              <i className={`text-4xl mb-3 text-white ${service.icon}`}></i>
               <img
                 src={service.img}
                 alt={service.title}
