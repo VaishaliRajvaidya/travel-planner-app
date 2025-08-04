@@ -55,15 +55,15 @@ const AllBookingFormsPage = () => {
   if (!service) return <p className="text-center mt-20 text-xl">No service selected.</p>;
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-emerald-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br  from-blue-600 to-emerald-600 flex items-center justify-center p-4">
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 40 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.5 }}
-        className="bg-white p-8 rounded-2xl shadow-xl w-full max-w-md"
+        className="bg-white p-5 rounded-2xl shadow-xl mt-3 w-full max-w-md"
       >
-        <h2 className="text-2xl font-bold text-center mb-6 text-gray-800">
+        <h2 className="text-2xl font-bold text-center mb-2 mt-5 text-gray-800">
           {service}
         </h2>
 
