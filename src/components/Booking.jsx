@@ -25,15 +25,42 @@ const BookingPage = () => {
     dob: "",
     journeyDate: "",
   });
+
+  const [errors, setErrors] = useState({});
   const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
 
   const handleChange = (e) => {
     setForm({ ...form, [e.target.name]: e.target.value });
+    setErrors({ ...errors, [e.target.name]: "" }); // Clear error on change
+  };
+
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!form.transport) newErrors.transport = "Please select a transport option.";
+    if (!form.fullName.trim() || form.fullName.length < 3)
+      newErrors.fullName = "Full Name must be at least 3 characters.";
+    if (!form.dob) {
+      newErrors.dob = "Date of Birth is required.";
+    } else if (new Date(form.dob) >= new Date()) {
+      newErrors.dob = "DOB must be in the past.";
+    }
+
+    if (!form.journeyDate) {
+      newErrors.journeyDate = "Journey Date is required.";
+    } else if (new Date(form.journeyDate) < new Date().setHours(0, 0, 0, 0)) {
+      newErrors.journeyDate = "Journey date must be today or later.";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
   const handleSubmit = (e) => {
     e.preventDefault();
+    if (!validateForm()) return;
+
     setLoading(true);
     setTimeout(() => {
       navigate("/payment", { state: form });
@@ -53,8 +80,7 @@ const BookingPage = () => {
           name="transport"
           value={form.transport}
           onChange={handleChange}
-          required
-          className="w-full mb-4 p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${errors.transport ? "border-red-500" : ""}`}
         >
           <option value="" disabled>
             Select your means of transport
@@ -65,6 +91,7 @@ const BookingPage = () => {
             </option>
           ))}
         </select>
+        {errors.transport && <p className="text-red-600 text-sm mb-2">{errors.transport}</p>}
 
         <label className="block mb-2">Full Name</label>
         <input
@@ -72,9 +99,9 @@ const BookingPage = () => {
           name="fullName"
           value={form.fullName}
           onChange={handleChange}
-          required
-          className="w-full mb-4 p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${errors.fullName ? "border-red-500" : ""}`}
         />
+        {errors.fullName && <p className="text-red-600 text-sm mb-2">{errors.fullName}</p>}
 
         <label className="block mb-2">Date of Birth</label>
         <input
@@ -82,9 +109,9 @@ const BookingPage = () => {
           name="dob"
           value={form.dob}
           onChange={handleChange}
-          required
-          className="w-full mb-4 p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${errors.dob ? "border-red-500" : ""}`}
         />
+        {errors.dob && <p className="text-red-600 text-sm mb-2">{errors.dob}</p>}
 
         <label className="block mb-2">Date of Journey</label>
         <input
@@ -92,9 +119,9 @@ const BookingPage = () => {
           name="journeyDate"
           value={form.journeyDate}
           onChange={handleChange}
-          required
-          className="w-full mb-4 p-2 border rounded"
+          className={`w-full mb-1 p-2 border rounded ${errors.journeyDate ? "border-red-500" : ""}`}
         />
+        {errors.journeyDate && <p className="text-red-600 text-sm mb-4">{errors.journeyDate}</p>}
 
         <button
           type="submit"

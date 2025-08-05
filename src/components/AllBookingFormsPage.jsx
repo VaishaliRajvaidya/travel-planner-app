@@ -1,7 +1,7 @@
 import React, { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
-import { AuthContext } from "../Context/AuthContext"; // make sure the path is correct
+import { AuthContext } from "../Context/AuthContext";
 
 const serviceConfigs = {
   "Flight Booking": ["fullName", "dob", "flightDate", "from", "to", "passportNumber"],
@@ -18,7 +18,8 @@ const serviceConfigs = {
 const AllBookingFormsPage = () => {
   const { state } = useLocation();
   const navigate = useNavigate();
-  const { currentUser } = useContext(AuthContext); // Get current user
+  const { currentUser } = useContext(AuthContext);
+
   const service = state?.service;
   const fields = serviceConfigs[service] || [];
 
@@ -26,8 +27,53 @@ const AllBookingFormsPage = () => {
     fields.reduce((acc, field) => ({ ...acc, [field]: "" }), {})
   );
 
+  const [formErrors, setFormErrors] = useState({});
+
   const handleChange = (e) => {
-    setForm({ ...form, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+    setForm({ ...form, [name]: value });
+    setFormErrors({ ...formErrors, [name]: "" }); // clear error on input
+  };
+
+  const validateForm = () => {
+    const errors = {};
+
+    fields.forEach((field) => {
+      const value = form[field];
+
+      if (!value.trim()) {
+        errors[field] = "This field is required.";
+      } else {
+        // Specific field validations
+        if (field.toLowerCase().includes("date") || field === "dob") {
+          const selectedDate = new Date(value);
+          if (isNaN(selectedDate.getTime())) {
+            errors[field] = "Invalid date.";
+          }
+        }
+
+        if (field === "passportNumber") {
+          if (!/^[A-Z0-9]{6,10}$/i.test(value)) {
+            errors[field] = "Invalid passport number.";
+          }
+        }
+
+        if (field === "contactNumber") {
+          if (!/^\d{10}$/.test(value)) {
+            errors[field] = "Enter a valid 10-digit phone number.";
+          }
+        }
+
+        if (field === "coverageAmount" || field === "groupSize") {
+          if (isNaN(value) || Number(value) <= 0) {
+            errors[field] = "Enter a valid number.";
+          }
+        }
+      }
+    });
+
+    setFormErrors(errors);
+    return Object.keys(errors).length === 0;
   };
 
   const handleSubmit = (e) => {
@@ -36,6 +82,10 @@ const AllBookingFormsPage = () => {
     if (!currentUser || !currentUser.email) {
       alert("User not logged in.");
       return;
+    }
+
+    if (!validateForm()) {
+      return; // stop submission if errors
     }
 
     const userKey = `bookings_${currentUser.email}`;
@@ -52,10 +102,12 @@ const AllBookingFormsPage = () => {
     navigate("/payment", { state: { ...form, service } });
   };
 
-  if (!service) return <p className="text-center mt-20 text-xl">No service selected.</p>;
+  if (!service) {
+    return <p className="text-center mt-20 text-xl">No service selected.</p>;
+  }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br  from-blue-600 to-emerald-600 flex items-center justify-center p-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-600 to-emerald-600 flex items-center justify-center p-4">
       <motion.form
         onSubmit={handleSubmit}
         initial={{ opacity: 0, y: 40 }}
@@ -78,14 +130,21 @@ const AllBookingFormsPage = () => {
                   ? "date"
                   : field.toLowerCase().includes("email")
                   ? "email"
+                  : field.toLowerCase().includes("number")
+                  ? "number"
                   : "text"
               }
               name={field}
               value={form[field]}
               onChange={handleChange}
               required
-              className="w-full p-2 border rounded"
+              className={`w-full p-2 border rounded ${
+                formErrors[field] ? "border-red-500" : ""
+              }`}
             />
+            {formErrors[field] && (
+              <p className="text-sm text-red-600 mt-1">{formErrors[field]}</p>
+            )}
           </div>
         ))}
 
