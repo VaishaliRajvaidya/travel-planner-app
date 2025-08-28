@@ -73,7 +73,7 @@ const Navbar = () => {
         className="text-2xl font-bold tracking-wide cursor-pointer"
         onClick={() => navigate("/")}
       >
-        🌍 Trip-x-Buddy
+        🌍 MyTripBuddy
       </h1>
 
       {/* Hamburger for Mobile */}

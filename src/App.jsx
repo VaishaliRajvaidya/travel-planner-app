@@ -20,8 +20,6 @@ import Footer from "./Pages/Footer";
 import AllBookingFormsPage from "./components/AllBookingFormsPage";
 
 
-
-
 const AppRoute = () => {
   const location = useLocation();
   const noNavbarRoutes = ["/register", "/login"];
